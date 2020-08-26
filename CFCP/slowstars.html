@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style>
+			body {
+				background-color: #ffffff;
+				margin: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<script src="http://threejsplaygnd.brangerbriz.net/js/three.min.js"></script>
+		<script src="http://threejsplaygnd.brangerbriz.net/js/Detector.js"></script>
+		<script>
+
+			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+			
+			var camera, scene, renderer;
+			var geometry, material, mesh;
+			var geometry1,material1,mesh1;
+
+			function setup() {
+
+				var W = window.innerWidth, H = window.innerHeight;
+				renderer = new THREE.WebGLRenderer( { preserveDrawingBuffer: true } );
+				renderer.autoClearColor = false;;
+				renderer.setSize( W, H );
+				document.body.appendChild( renderer.domElement );
+
+				camera = new THREE.PerspectiveCamera( 50, W/H, 1, 10000 );
+				camera.position.z = 500;
+
+				scene = new THREE.Scene();
+				//star 1
+					geometry = new THREE.TorusGeometry(59.23, 40, 6, 10, 25.13);
+					material = new THREE.MeshNormalMaterial({shading: THREE.FlatShading});
+					mesh = new THREE.Mesh(geometry, material);
+					scene.add(mesh);
+					
+				//star 2
+					geometry1 = new THREE.TorusGeometry(59.23, 40, 6, 10, 25.13);
+					material1 = new THREE.MeshNormalMaterial({shading: THREE.FlatShading, wireframe: true, wireframeLinewidth: 8});
+					mesh1 = new THREE.Mesh(geometry1, material1);
+					scene.add(mesh1);
+					
+
+				// paste your code from the geometryGUI here
+
+
+			}
+
+			function draw() {
+
+				requestAnimationFrame( draw );
+				
+				// experiment with code from the snippets menu here
+				mesh1.rotation.x = Date.now() * 0.0005;	
+				mesh1.rotation.x = Date.now() * 0.000;	
+				mesh1.rotation.z = Date.now() * 0.0009;
+				
+				camera.position.z = Math.sin( Date.now() * 0.002 ) * 2000;
+				camera.position.z = Math.sin( Date.now() * 0.0010 ) * 2500;
+				camera.lookAt(mesh.position);
+
+				renderer.render( scene, camera );
+		
+			}
+
+			setup();
+			draw();
+
+		</script>
+		
+	</body>
+</html>
